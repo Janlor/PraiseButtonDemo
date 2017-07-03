@@ -29,7 +29,7 @@ class PraiseButton: UIButton {
     
     // MARK: - Private Functions
     
-    func layout() {
+    private func layout() {
         setTitleColor(.gray, for: .normal)
         setTitleColor(.orange, for: .selected)
         

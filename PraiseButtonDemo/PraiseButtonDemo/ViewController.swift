@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     // MARK: - Private Functions
     
-    func setupUI() {
+    private func setupUI() {
         let frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         let btn = PraiseButton(frame: frame)
         btn.center = view.center
