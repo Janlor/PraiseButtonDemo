@@ -30,8 +30,6 @@ class PraiseButton: UIButton {
     // MARK: - Private Functions
     
     func layout() {
-//        backgroundColor = .lightGray
-        
         setTitleColor(.gray, for: .normal)
         setTitleColor(.orange, for: .selected)
         
@@ -46,7 +44,6 @@ class PraiseButton: UIButton {
     }
     
     @objc private func praiseButtonDidClicked(button: UIButton) {
-//        if isSelected { return }
         isSelected = true
         // 展示动效
         popOutsideWithDuration(duration: 0.5)
@@ -59,9 +56,11 @@ class PraiseButton: UIButton {
     
     private func popOutsideWithDuration(duration: TimeInterval) {
         imageView?.transform = .identity
+        
         if let imageView = imageView, imageView.isAnimating {
             imageView.stopAnimating()
         }
+        
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeLinear, animations: { [weak self] in
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1 / 2, animations: { [weak self] in
                 guard let strongSelf = self else { return }
@@ -75,8 +74,3 @@ class PraiseButton: UIButton {
         }, completion: nil)
     }
 }
-
-
-
-
-
