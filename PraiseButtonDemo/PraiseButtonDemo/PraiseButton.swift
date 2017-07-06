@@ -22,6 +22,7 @@ class PraiseButton: UIButton {
         layout()
     }
     
+    // 取消高亮效果
     override var isHighlighted: Bool {
         set { }
         get { return false }
@@ -34,12 +35,12 @@ class PraiseButton: UIButton {
         setTitleColor(.orange, for: .selected)
         
         titleLabel?.font = UIFont.systemFont(ofSize: 12)
-
+        
         setImage(#imageLiteral(resourceName: "praise"), for: .normal)
         setImage(#imageLiteral(resourceName: "praise_touch"), for: .selected)
         
         titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0)
-
+        
         addTarget(self, action: #selector(praiseButtonDidClicked(button:)), for: .touchUpInside)
     }
     
@@ -48,8 +49,8 @@ class PraiseButton: UIButton {
         // 展示动效
         popOutsideWithDuration(duration: 0.5)
         // 模拟数据
-        let title = titleLabel?.text ?? ""
-        var praiseNum = Int(title) ?? 0
+        let titleText = titleLabel?.text ?? ""
+        var praiseNum = Int(titleText) ?? 0
         praiseNum += 1
         setTitle("\(praiseNum)", for: .normal)
     }
@@ -61,16 +62,22 @@ class PraiseButton: UIButton {
             imageView.stopAnimating()
         }
         
+        alpha = 1.0
+        
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeLinear, animations: { [weak self] in
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1 / 2, animations: { [weak self] in
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0 / 2.0, animations: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.imageView?.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+                strongSelf.alpha = 0.5
             })
-            UIView.addKeyframe(withRelativeStartTime: 1 / 2, relativeDuration: 1 / 2, animations: { [weak self] in
+            UIView.addKeyframe(withRelativeStartTime: 1.0 / 2.0, relativeDuration: 1 / 2.0, animations: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                strongSelf.alpha = 1.0
                 strongSelf.imageView?.stopAnimating()
             })
-        }, completion: nil)
+        }, completion: { (isFinished) in
+            
+        })
     }
 }
